@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type = "text/javascript" 
+         src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <meta charset="utf-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+
+
+    <style type="text/css">
+
+            html {
+            background: url("weather-background.jpg") no-repeat;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+
+        }
+        body {
+            background: url("weather-background.jpg") no-repeat;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+
+        }
+
+        .bcground {
+            margin: auto;
+            margin-top: 7%;
+            background-color: rgba(190, 187, 189, 0.5);
+            border-radius: 18px;
+            
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-family: Lato;
+
+        }
+    </style>     
+</head>
+<body>
+
+<!-- Background image source - http://mumbainext.org/changing-the-city-skyline/ -->
+<!--<button onclick="getLocation()">Try It</button>-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="bcground">
+                <center><h1>Local Weather App</h1></center> <hr>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <h2><span id="placeName" style="margin:auto;"></span></h2> 
+                            <h1 id="icon"></h1><h1><tempr id="displayTemp"></tempr></h1><br>
+                        </div> 
+                        <div class="col-md-5" style="padding-top:10px;">
+                            <b><div id="description" style="font-size:18px"></div></b>
+                        </div>
+                        <div class="col-md-3"></div>    
+                    </div> 
+                </div><hr>
+                <center><b>Developed by: Aditya Ekawade</b></center> <br>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+var x = document.getElementById("demo");
+
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+        	//x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;	
+
+    $(document).ready(function() {
+        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&appid=7627d7cba3754868f117fb69ac6d5bdc', function(jd) {
+
+                var t = jd.main.temp
+                var tr = t - 273;
+                var tempInDegree = tr.toFixed(2);
+
+                var farenh = ((tempInDegree * 1.8) + 32).toFixed(2);
+
+                document.getElementById("placeName").innerHTML= jd.name.toUpperCase();
+                document.getElementById("displayTemp").innerHTML= tempInDegree + '&nbsp; &#8451' ;
+
+
+                document.getElementById("icon").innerHTML= "<img src='http://openweathermap.org/img/w/" + jd.weather[0].icon + ".png'>"; 
+                
+                 $('#description').html( jd.weather[0].description +  '<br><br> Temparture in Fahrenheit : ' + farenh + ' <br><br> Humidity: ' + jd.main.humidity + '% <br><br> Wind speed: ' + jd.wind.speed + ' knots <br><br> Geo coords: <span style="font-color: red"> [ ' + jd.coord.lon + ' , ' + jd.coord.lat + ' ] </span> '  );
+
+            });               
+         });
+
+
+
+        });
+
+    }
+
+
+
+
+
+   
+</script>
+</div>
+</body>
+</html>
