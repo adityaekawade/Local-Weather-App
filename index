@@ -83,7 +83,7 @@ var x = document.getElementById("demo");
         	//x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;	
 
     $(document).ready(function() {
-        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&appid=7627d7cba3754868f117fb69ac6d5bdc', function(jd) {
+        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&appid=appId', function(jd) {
 
                 var t = jd.main.temp
                 var tr = t - 273;
